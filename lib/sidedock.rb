@@ -4,7 +4,7 @@
 module Sidedock
   class << self
     def with_docker_image(image, options = {}, &block)
-      container = Sidedock::Container.new image, options
+      container = Sidedock::Container.create image, options
       container.start
       yield container
       container.stop

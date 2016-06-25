@@ -2,15 +2,20 @@ module Sidedock
   class Container < Base
     attr_accessor :ports, :id
 
-    def initialize(image_name_or_id, port_mapping: {})
-      raise "No image name given" unless image_name_or_id.present?
-      @image_name_or_id = image_name_or_id
+    def initialize(id, port_mapping: {})
+      @id = id
       @port_mapping = port_mapping
+    end
+
+    def self.create(image_name_or_id, options)
+      raise "No image name given" unless image_name_or_id.present?
+      id = machine.execute "create -P #{image_name_or_id}"
+      new id, **options
     end
 
     def start
       raise "already started" if running?
-      @id = machine.execute "run -P -d #{@image_name_or_id}"
+      machine.execute "start #{@id}"
     end
 
     def stop
@@ -27,7 +32,7 @@ module Sidedock
     end
 
     def running?
-      @id.present?
+      machine.execute('ps -q --no-trunc').include? @id
     end
 
     def bash(command)
@@ -40,6 +45,7 @@ module Sidedock
 
     def self.using_image(image)
       ps_output = machine.execute "ps -a -q --filter ancestor=#{image.id}"
+
       ps_output.each_line.map do |id|
         new id
       end
