@@ -16,19 +16,18 @@ Sidedock assumes the server you run Rails on is powerful enough to also run the 
 ### Rspec
 Example:
 ```docker
-# spec/dockerfiles/ftp_server/Dockerfile
+# spec/docker/ftp_server/Dockerfile
 FROM odiobill/vsftpd
 RUN bash -c 'useradd test -p $1$2f712aa7$bP1dXBeOEUoeTdnUeNLGQ/'
 ```
 Then, to run it alongside your Rspec tests, simply do:
 ```ruby
 before do
-  with_dockerfile 'ftp_server', port_mapping: { ftp: 21 } do |ftp_server|
+  Sidedock.with_dockerfile 'ftp_server', port_mapping: { ftp: 21 } do |ftp_server|
     puts ftp_server.ports.ftp # => '21'
     puts ftp_server.ip # => '10.5.2.100'
     puts ftp_server.bash 'cat /etc/hosts' # => '127.0.0.1	localhost
                                           #     ...'
   end
-end
 end
 ```
