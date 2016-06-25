@@ -9,4 +9,6 @@ Gem::Specification.new do |s|
   s.files       = `git ls-files -- lib/**/*`.split("\n")
   s.homepage    = 'https://github.com/timraasveld/sidedock'
   s.license     = 'MIT'
+
+  s.add_runtime_dependency 'tty-command', '>= 0.1.0'
 end
