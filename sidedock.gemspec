@@ -10,5 +10,5 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/timraasveld/sidedock'
   s.license     = 'MIT'
 
-  s.add_runtime_dependency 'tty-command', '>= 0.1.0'
+  s.add_runtime_dependency 'tty-command', '~> 0.1.0'
 end
