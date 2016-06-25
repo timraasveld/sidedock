@@ -6,8 +6,8 @@ Sidedock simplifies working with Docker by allowing you to include a Dockerfile 
 ## The problem
 Docker is supposed to make it easy to, I quote, *Build, Ship, and Run Any App, Anywhere*. While it may live up to this promise in big enterprises who have lots of manpower, in small teams using Docker can be quite problematic because:
 
-- In a microservices set-up, when one of your services is updated, your Rails app also needs to be updated. Most teams simply don't have time for API versioning and backwards compatibility.
-- You have to think of a build system, when are images built, pushed and deployed?
+- In a microservices set-up, when one of your services is updated, your main app also often needs to be updated. Most teams simply don't have time for API versioning and backwards compatibility.
+- You have to think of a build workflow and set up a deployment system. When are images updated, built, and started?
 - How to ensure Docker is up when your Rails app is, when your server reboots or a new version of your Rails app is deploying
 
 Docker's concepts (images and containers) are designed for big, distributed set-ups, and not for small companies whose main priority is getting a bigger user base.
