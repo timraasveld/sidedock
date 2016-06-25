@@ -1,6 +1,5 @@
 **NOTE: The current code is quite buggy and definitely not production-ready. In its current state, it's only suitable for testing (which I built it for originally)**
 
-# Sidedock
 Sidedock simplifies working with Docker by allowing you to include a Dockerfile in your Rails app and run it *on the side* when your `rails server` spawns, abstracting away everything Docker requires you to do in between.
 
 ## The problem
