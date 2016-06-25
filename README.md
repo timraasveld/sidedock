@@ -19,7 +19,7 @@ Sidedock assumes the server you run Rails on is powerful enough to also run the 
 ## Rspec
 Example:
 ```docker
-# spec/dockerfiles/ftp_server/Dockerfile
+# spec/docker/ftp_server/Dockerfile
 FROM odiobill/vsftpd
 RUN bash -c 'useradd test -p $1$2f712aa7$bP1dXBeOEUoeTdnUeNLGQ/'
 ```
