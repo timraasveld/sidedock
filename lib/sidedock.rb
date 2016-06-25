@@ -2,34 +2,38 @@
 ).each { |file| require "sidedock/#{file}" }
 
 module Sidedock
-  def with_docker_image(image, options = {}, &block)
-    container = Sidedock::Container.new image, options
-    container.start
-    yield container
-    container.stop
-    container.remove
-  end
-
-  def with_dockerfile(name, options = {}, &block)
-    image = Sidedock::Image.build path_to_dockerfile(name)
-
-    with_docker_image image.id, options do |container|
+  class << self
+    def with_docker_image(image, options = {}, &block)
+      container = Sidedock::Container.new image, options
+      container.start
       yield container
+      container.stop
+      container.remove
     end
 
-    image.remove
-  end
+    def with_dockerfile(name, options = {}, &block)
+      image = Sidedock::Image.build path_to_dockerfile(name)
 
-  def path_to_dockerfile
-    Rails.root.join base_directory, 'docker', name
-  end
+      with_docker_image image.id, options do |container|
+        yield container
+      end
 
-  def base_directory
-    case ENV['RAILS_ENV']
-    when 'test'
-      'spec'
-    else
-      'app'
+      image.remove
+    end
+
+    def path_to_dockerfile(name)
+      path = Rails.root.join base_directory, 'docker', name
+      raise "Dockerfile path `#{path}` not found" unless File.exist? path
+      path
+    end
+
+    def base_directory
+      case ENV['RAILS_ENV']
+      when 'test'
+        'spec'
+      else
+        'app'
+      end
     end
   end
 end

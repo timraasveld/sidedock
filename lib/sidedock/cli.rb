@@ -1,3 +1,5 @@
+require 'tty/command'
+
 module Sidedock
   class CLI
     class_attribute :program

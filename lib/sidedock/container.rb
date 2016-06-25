@@ -37,5 +37,12 @@ module Sidedock
     def ip
       machine.ip
     end
+
+    def self.using_image(image)
+      ps_output = machine.execute "ps -a -q --filter ancestor=#{image.id}"
+      ps_output.each_line.map do |id|
+        new id
+      end
+    end
   end
 end

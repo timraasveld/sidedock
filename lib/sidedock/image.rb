@@ -7,7 +7,15 @@ module Sidedock
     end
 
     def remove
+      remove_containers_using_it
       machine.execute "rmi -f #{@id}"
+    end
+
+    def remove_containers_using_it
+      Container.using_image(self).each do |container|
+        container.stop
+        container.remove
+      end
     end
 
     def self.build(dockerfile_path)
