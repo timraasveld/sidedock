@@ -1,7 +1,5 @@
 **NOTE: The current code is quite buggy and definitely not production-ready. In its current state, it's only suitable for testing (which I built it for originally)**
 
-Sidedock simplifies working with Docker by allowing you to include a Dockerfile in your Rails app and run it *on the side* when your `rails server` spawns, abstracting away everything Docker requires you to do in between.
-
 ## The problem
 Docker is supposed to make it easy to, I quote, *Build, Ship, and Run Any App, Anywhere*. While it may live up to this promise in big enterprises who have lots of manpower, in small teams using Docker can be quite problematic because:
 
@@ -14,8 +12,8 @@ Docker's concepts of images and containers are designed for big enterprises who 
 ## The solution
 Sidedock assumes the server you run Rails on is powerful enough to also run the Docker services you need, allowing you define a Dockerfile under `app/docker` (or `spec/docker` for testing purposes), and automagically bring it up and down within a `with_dockerfile 'my_dockerfile' do`-block
 
-# Usage
-## Rspec
+## Usage
+### Rspec
 Example:
 ```docker
 # spec/dockerfiles/ftp_server/Dockerfile
