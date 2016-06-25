@@ -13,7 +13,7 @@ Docker is supposed to make it easy to, I quote, *Build, Ship, and Run Any App, A
 Docker's concepts (images and containers) are designed for big, distributed set-ups, and not for small companies whose main priority is getting a bigger user base.
 
 ## The solution
-Sidedock assumes the server you run Rails on is powerful enough to also run the Docker services you need, allowing you define a Dockerfile under `app/docker` (or `spec/docker` for testing purposes)
+Sidedock assumes the server you run Rails on is powerful enough to also run the Docker services you need, allowing you define a Dockerfile under `app/docker` (or `spec/docker` for testing purposes), and automagically bring it up and down within a `with_dockerfile 'my_dockerfile' do`-block
 
 # Usage
 ## Rspec
