@@ -12,10 +12,7 @@ module Sidedock
     end
 
     def remove_containers_using_it
-      Container.using_image(self).each do |container|
-        container.stop
-        container.remove
-      end
+      Container.using_image(self).each(&:remove)
     end
 
     def self.build(dockerfile_path)
