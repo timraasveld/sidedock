@@ -10,7 +10,7 @@ Docker is supposed to make it easy to, I quote, *Build, Ship, and Run Any App, A
 - You have to think of a build workflow and set up a deployment system. When are images updated, built, and started?
 - How to ensure Docker is up when your Rails app is, when your server reboots or a new version of your Rails app is deploying
 
-Docker's concepts (images and containers) are designed for big, distributed set-ups, and not for small companies whose main priority is getting a bigger user base.
+Docker's concepts of images and containers are designed for big enterprises who have to scale, and not for the 95% of small companies companies whose main concern is growing their user base.
 
 ## The solution
 Sidedock assumes the server you run Rails on is powerful enough to also run the Docker services you need, allowing you define a Dockerfile under `app/docker` (or `spec/docker` for testing purposes), and automagically bring it up and down within a `with_dockerfile 'my_dockerfile' do`-block
