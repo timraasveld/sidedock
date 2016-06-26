@@ -4,8 +4,7 @@
 Docker is supposed to make it easy to, I quote, *Build, Ship, and Run Any App, Anywhere*. While it may live up to this promise in big enterprises with lots of money and time, in small teams using Docker can be quite problematic because:
 
 - You have to think of a build workflow and set up a deployment system. When are images updated, built, and started?
-- How to ensure Docker is up when your Rails app is, when your server reboots or a new version of your Rails app is deploying
-- In a microservices set-up, when one of your services is updated, your main app also needs to be updated to match the new API/schema of the service. If you have lots of time, the solution to this is to temporarily support two code paths for the old and new API.
+- You have to ensure required Docker services are up when your main app is, when your server reboots or a new version of your Rails app is deploying
 
 Docker's concepts of images and containers are designed for big enterprises who have to scale, not for the 95% of small companies whose main concern is getting more people to enjoy their app.
 
