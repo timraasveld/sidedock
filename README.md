@@ -43,9 +43,13 @@ end
 
 ### `with_dockerfile` options
 ```ruby
-  Sidedock.with_dockerfile 'gitlab', port_mapping: { https: 443 }, # Make port available as `gitlab.ports.https` (default: {})
-                                     keep_image: true              # Don't remove image after build, allowing Docker to cache.
-                                                                   # Useful for a fast development feedback cycle,
-                                                                   # but you need to have knowledge about how Docker caches
-                                                                   # to use this wisely (default: false)
+  Sidedock.with_dockerfile 'gitlab', {
+    port_mapping: { https: 443 }, # Make port available as `gitlab.ports.https` (default: {})
+    keep_image: true              # Don't remove image after build, allowing Docker to cache.
+                                  # Useful for a fast development feedback cycle,
+                                  # but you need to have knowledge about how Docker caches
+                                  # to use this wisely (default: false)
+  } do
+    something
+  end
 ```
