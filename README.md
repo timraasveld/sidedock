@@ -14,11 +14,17 @@ Sidedock assumes the server you run Rails on is powerful enough to also run the 
 ## Basic usage
 ### RSpec
 Example:
+```ruby
+# Gemfile
+gem 'sidedock', '~> 1.0.3'
+```
+
 ```docker
 # spec/docker/ftp_server/Dockerfile
 FROM odiobill/vsftpd
 RUN bash -c 'useradd test -p $1$2f712aa7$bP1dXBeOEUoeTdnUeNLGQ/'
 ```
+
 Then, to run it alongside your Rspec tests, simply do:
 ```ruby
 before do
