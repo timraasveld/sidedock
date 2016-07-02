@@ -8,7 +8,7 @@ module Sidedock
       container.start
       yield container
       container.stop
-      container.remove
+      container.remove unless options[:keep_image]
     end
 
     def with_dockerfile(name, options = {}, &block)

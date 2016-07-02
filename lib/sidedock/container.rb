@@ -2,7 +2,7 @@ module Sidedock
   class Container < Base
     attr_accessor :ports, :id
 
-    def initialize(id, port_mapping: {})
+    def initialize(id, port_mapping: {}, **options)
       @id = id
       @port_mapping = port_mapping
     end
@@ -28,7 +28,7 @@ module Sidedock
     end
 
     def ports
-      Ports.new(@id, @port_mapping) if @port_mapping.present?
+      @ports ||= Ports.new @id, @port_mapping
     end
 
     def running?
