@@ -19,7 +19,7 @@ Example:
 gem 'sidedock', '~> 1.0.3'
 ```
 
-```docker
+```dockerfile
 # spec/docker/ftp_server/Dockerfile
 FROM odiobill/vsftpd
 RUN bash -c 'useradd test -p $1$2f712aa7$bP1dXBeOEUoeTdnUeNLGQ/'
