@@ -11,7 +11,7 @@ Docker's concepts of images and containers are designed for big enterprises who 
 ## The solution
 Sidedock assumes the server you run Rails on is powerful enough to also run the Docker services you need, allowing you define a Dockerfile under `app/docker` (or `spec/docker` for testing purposes), and automagically bring it up and down within a `with_dockerfile 'my_dockerfile' do`-block. This allows you to have the benefits of Docker without the big sysop/devops task that normally comes along with it.
 
-## Usage
+## Basic usage
 ### Rspec
 Example:
 ```docker
@@ -41,7 +41,7 @@ Sidedock.configure do |config|
 end
 ```
 
-## `with_dockerfile` options
+### `with_dockerfile` options
 ```ruby
   Sidedock.with_dockerfile 'gitlab', port_mapping: { https: 443 }, # Make port available as `gitlab.ports.https` (default: {})
                                      keep_image: true              # Don't remove image after build, allowing Docker to cache.
