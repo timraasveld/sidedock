@@ -7,10 +7,10 @@
 module Sidedock
   class << self
     attr_accessor :configuration
+
   end
 
   def self.configure
-    self.configuration ||= Configuration.new
     yield configuration
   end
 
@@ -20,6 +20,11 @@ module Sidedock
     def initialize
       @debug = false
     end
+  end
+
+  self.configuration = Configuration.new
+  self.configure do |config|
+    config.debug = false
   end
 end
 
