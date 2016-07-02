@@ -12,7 +12,7 @@ Docker's concepts of images and containers are designed for big enterprises who 
 Sidedock assumes the server you run Rails on is powerful enough to also run the Docker services you need, allowing you define a Dockerfile under `app/docker` (or `spec/docker` for testing purposes), and automagically bring it up and down within a `with_dockerfile 'my_dockerfile' do`-block. This allows you to have the benefits of Docker without the big sysop/devops task that normally comes along with it.
 
 ## Basic usage
-### Rspec
+### RSpec
 Example:
 ```docker
 # spec/docker/ftp_server/Dockerfile
