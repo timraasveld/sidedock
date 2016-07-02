@@ -15,10 +15,6 @@ module Sidedock
       raise "Could not start docker machine #{@name}" unless running?
     end
 
-    def running?
-      docker_machine("ls -q --filter state=Running").include? @name
-    end
-
     def start
       docker_machine "start #{@name}"
     end
@@ -28,8 +24,18 @@ module Sidedock
       docker_machine "create -d virtualbox #{@name}"
     end
 
+    def running?
+      return true if @running
+      if docker_machine("ls -q --filter state=Running").include? @name
+        @running = true
+      end
+    end
+
     def exists?
-      docker_machine("ls -q").include? @name
+      return true if @exists
+      if docker_machine("ls -q").include? @name
+        @exists = true
+      end
     end
 
     def ip

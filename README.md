@@ -25,11 +25,27 @@ before do
   Sidedock.with_dockerfile 'ftp_server', port_mapping: { ftp: 21 } do |ftp_server|
     # Get Docker's automatically assigned port for the service
     puts ftp_server.ports.ftp # => '31425'
-    
+
     puts ftp_server.ip # => '10.5.2.100'
-    
+
     puts ftp_server.bash 'cat /etc/hosts' # => '127.0.0.1	localhost
                                           #     ...'
   end
 end
+```
+
+## Configuration
+```ruby
+Sidedock.configure do |config|
+  config.debug = true # Print each executed docker(-machine) command
+end
+```
+
+## `with_dockerfile` options
+```ruby
+  Sidedock.with_dockerfile 'gitlab', port_mapping: { https: 443 }, # Make port available as `gitlab.ports.https` (default: {})
+                                     keep_image: true              # Don't remove image after build, allowing Docker to cache.
+                                                                   # Useful for a fast development feedback cycle,
+                                                                   # but you need to have knowledge about how Docker caches
+                                                                   # to use this wisely (default: false)
 ```

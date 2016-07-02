@@ -1,4 +1,4 @@
-%w( cli machine base image container ports port_configuration
+%w( configuration cli machine base image container ports port_configuration
 ).each { |file| require "sidedock/#{file}" }
 
 module Sidedock
