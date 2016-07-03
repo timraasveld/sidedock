@@ -41,3 +41,6 @@ bower.json
 # Ignore Byebug command history file.
 .byebug_history
 *.gem
+
+# Don't force users to use specific gem versions
+Gemfile.lock
