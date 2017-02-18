@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'sidedock'
-  s.version     = '1.0.3'
+  s.version     = '2.0.0-beta1'
   s.date        = '2016-06-23'
   s.summary     = 'Sidedock'
   s.description = 'Simplify working with Docker by running Dockerfiles from your Rails app'
@@ -14,4 +14,6 @@ Gem::Specification.new do |s|
                            "apt-get install -y docker (Debian / Ubuntu)"
 
   s.add_runtime_dependency 'tty-command', '~> 0.1.0'
+
+  s.add_development_dependency 'rake', '~> 10.0'
 end
