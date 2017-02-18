@@ -1,11 +1,13 @@
 module Sidedock
   class Base
-    def machine
-      self.class.machine
+    def cli
+      self.class.cli
     end
 
-    def self.machine
-      @@machine ||= Machine.new 'sidedock'
+    def self.cli
+      args = '--debug' if Sidedock.configuration.debug
+      args ||= ''
+      @@cli ||= DockerCLI.new args
     end
   end
 end

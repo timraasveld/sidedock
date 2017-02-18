@@ -2,6 +2,7 @@ require 'bundler/setup'
 Bundler.require
 
 require 'sidedock'
+include Sidedock # Don't require specifying module in every spec
 
 RSpec.configure do |config|
   config.mock_with :rspec do |mocks|
@@ -14,10 +15,4 @@ RSpec.configure do |config|
 
   Kernel.srand config.seed
   config.order = 'random'
-
-  require 'fantaskspec'
-  config.infer_rake_task_specs_from_file_location!
 end
-
-Rake.application.init
-Rake.application.load_rakefile

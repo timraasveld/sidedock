@@ -14,6 +14,8 @@ Gem::Specification.new do |s|
                            "                  apt-get install -y docker (Debian / Ubuntu)"
 
   s.add_runtime_dependency 'tty-command', '~> 0.1.0'
+  s.add_runtime_dependency 'uber', '~> 0.0.15'
+  s.add_runtime_dependency 'activesupport'
 
   s.add_development_dependency 'rake', '~> 10.0'
 end

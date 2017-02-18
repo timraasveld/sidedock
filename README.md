@@ -43,7 +43,7 @@ end
 ## Configuration
 ```ruby
 Sidedock.configure do |config|
-  config.debug = true # Print each executed docker(-machine) command
+  config.debug = true # Print each executed docker command
 end
 ```
 

@@ -1,4 +1,5 @@
-%w( configuration cli machine base image container ports port_configuration
+require 'active_support/core_ext/object/blank'
+%w( configuration cli base image container ports port_configuration
 ).each { |file| require "sidedock/#{file}" }
 
 module Sidedock

@@ -2,15 +2,15 @@ module Sidedock
   class Ports < Base
     include Enumerable
 
-    def initialize(machine_id, port_mapping)
+    def initialize(container_id, port_mapping)
       @port_mapping = port_mapping
-      @machine_id = machine_id
+      @container_id = container_id
       define_port_accessors if @port_mapping.present?
     end
 
     def define_port_accessors
       @port_mapping.each do |name, port_number|
-        raise "#{name} cannot be used as port mapping key" if respond_to? :name
+        raise "#{name} cannot be used as port mapping key" if respond_to? name
 
         port = find do |port|
           port.internal == port_number
@@ -37,7 +37,7 @@ module Sidedock
     end
 
     def raw_configuration_lines
-      @raw_configuration_lines ||= machine.execute("port #{@machine_id}").strip.split("\n")
+      @raw_configuration_lines ||= cli.execute("port #{@container_id}").strip.split("\n")
     end
   end
 end
