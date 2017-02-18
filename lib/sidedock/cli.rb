@@ -1,11 +1,13 @@
 require 'tty/command'
-require 'uber/inheritable_attr'
 
 module Sidedock
   class CLI
+    class_attribute :program
+
     def initialize(default_options = '')
       @default_options = default_options
     end
+
 
     def execute(command)
       full_command = "#{program} #{@default_options} #{command}"
