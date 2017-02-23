@@ -36,7 +36,11 @@ module Sidedock
     end
 
     def sh(command)
-      cli.execute "exec -t #{@id} bash -c '#{command}'"
+      cli.execute "exec #{@id} sh -c $'#{escape_single_quotes(command)}'"
+    end
+
+    def escape_single_quotes(string)
+      string.gsub "'", %q(\\\')
     end
 
     def ip
