@@ -3,5 +3,9 @@ module Sidedock
     self.program = 'docker'
 
     command_wrapper :create
+
+    def ip
+      '127.0.0.1'
+    end
   end
 end
