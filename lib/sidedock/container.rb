@@ -35,7 +35,7 @@ module Sidedock
       cli.execute('ps -q --no-trunc').include? @id
     end
 
-    def bash(command)
+    def sh(command)
       cli.execute "exec -t #{@id} bash -c '#{command}'"
     end
 

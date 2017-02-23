@@ -34,7 +34,7 @@ before do
 
     puts ftp_server.ip # => '10.5.2.100'
 
-    puts ftp_server.bash 'cat /etc/hosts' # => '127.0.0.1	localhost
+    puts ftp_server.sh 'cat /etc/hosts' # => '127.0.0.1	localhost
                                           #     ...'
   end
 end

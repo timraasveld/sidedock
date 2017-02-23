@@ -10,7 +10,7 @@ module Sidedock
 
     def define_port_accessors
       @port_mapping.each do |name, port_number|
-        raise "#{name} cannot be used as port mapping key" if respond_to? name
+        raise MethodInUse.new(self.class) if respond_to? name
 
         port = find do |port|
           port.internal == port_number

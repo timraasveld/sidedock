@@ -1,6 +1,7 @@
 require 'bundler/setup'
 Bundler.require
 
+require 'byebug'
 require 'sidedock'
 include Sidedock # Don't require specifying module in every spec
 

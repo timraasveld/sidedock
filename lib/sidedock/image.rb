@@ -15,8 +15,8 @@ module Sidedock
       Container.using_image(self).each(&:remove)
     end
 
-    def self.build(dockerfile_path)
-      built_id = cli.execute "build -q #{dockerfile_path}"
+    def self.build(dockerfile_path, dockerfile = 'Dockerfile')
+      built_id = cli.execute "build -q #{dockerfile_path} --file #{dockerfile}"
       new built_id
     end
   end

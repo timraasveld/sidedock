@@ -9,5 +9,9 @@ module Sidedock
       @external = match[:external].to_i
       @protocol = match[:protocol]
     end
+
+    def to_h
+      { internal: @internal, external: @external, protocol: @protocol }
+    end
   end
 end
