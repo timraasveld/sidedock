@@ -9,22 +9,22 @@ module Sidedock
 
     def self.create(image_name_or_id, options)
       raise "No image name given" unless image_name_or_id.present?
-      id = machine.execute "create -P #{image_name_or_id}"
+      id = cli.create "-P #{image_name_or_id}"
       new id, **options
     end
 
     def start
       raise "already started" if running?
-      machine.execute "start #{@id}"
+      cli.execute "start #{@id}"
     end
 
     def stop
       raise "not running" unless running?
-      machine.execute "stop #{@id}"
+      cli.execute "stop #{@id}"
     end
 
     def remove
-      machine.execute "rm -f #{@id}"
+      cli.execute "rm -f #{@id}"
     end
 
     def ports
@@ -32,19 +32,29 @@ module Sidedock
     end
 
     def running?
-      machine.execute('ps -q --no-trunc').include? @id
+      cli.execute('ps -q --no-trunc').include? @id
     end
 
-    def bash(command)
-      machine.execute "exec -t #{@id} bash -c '#{command}'"
+    def sh(command)
+      cli.execute "exec #{@id} sh -c $'#{escape_single_quotes(command)}'"
+    end
+
+    def escape_single_quotes(string)
+      string.gsub "'", %q(\\\')
     end
 
     def ip
-      machine.ip
+      cli.ip
+    end
+
+    def self.all
+      cli.execute('ps -q --no-trunc').split.map do |id|
+        new id
+      end
     end
 
     def self.using_image(image)
-      ps_output = machine.execute "ps -a -q --filter ancestor=#{image.id}"
+      ps_output = cli.execute "ps -a -q --filter ancestor=#{image.id}"
 
       ps_output.each_line.map do |id|
         new id

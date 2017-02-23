@@ -8,15 +8,15 @@ module Sidedock
 
     def remove
       remove_containers_using_it
-      machine.execute "rmi -f #{@id}"
+      cli.execute "rmi -f #{@id}"
     end
 
     def remove_containers_using_it
       Container.using_image(self).each(&:remove)
     end
 
-    def self.build(dockerfile_path)
-      built_id = machine.execute "build -q #{dockerfile_path}"
+    def self.build(dockerfile_path, dockerfile = 'Dockerfile')
+      built_id = cli.execute "build -q #{dockerfile_path} --file #{dockerfile}"
       new built_id
     end
   end
