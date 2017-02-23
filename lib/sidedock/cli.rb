@@ -14,7 +14,7 @@ module Sidedock
     def execute(command)
       full_command = "#{program} #{@default_options} #{command}"
       stdout, stderr = command_runner.run full_command
-      raise "`#{command}` failed" if stderr.present?
+      raise "`#{full_command}` failed, stderr: #{stderr}" if stderr.present?
       stdout.strip
     end
 
