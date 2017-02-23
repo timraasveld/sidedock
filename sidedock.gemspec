@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'sidedock'
-  s.version     = '2.0.0-beta1'
+  s.version     = '2.0.0-beta2'
   s.date        = '2016-06-23'
   s.summary     = 'Sidedock'
   s.description = 'Simplify working with Docker by running Dockerfiles from your Rails app'
