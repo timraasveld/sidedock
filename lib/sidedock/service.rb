@@ -4,7 +4,7 @@ module Sidedock
   class Service
     attr_reader :container
 
-    delegate :sh, :ports, to: :container
+    delegate :ip, :sh, :ports, to: :container
 
     def self.use(options = {})
       options[:port_mapping] ||= {}
