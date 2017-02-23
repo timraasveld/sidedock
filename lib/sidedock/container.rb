@@ -43,6 +43,12 @@ module Sidedock
       cli.ip
     end
 
+    def self.all
+      cli.execute('ps -q --no-trunc').split.map do |id|
+        new id
+      end
+    end
+
     def self.using_image(image)
       ps_output = cli.execute "ps -a -q --filter ancestor=#{image.id}"
 
