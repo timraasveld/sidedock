@@ -5,9 +5,7 @@ module Sidedock
     end
 
     def self.cli
-      args = '--debug' if Sidedock.configuration.debug
-      args ||= ''
-      @@cli ||= DockerCLI.new args
+      @@cli ||= DockerCLI.new ''
     end
   end
 end
