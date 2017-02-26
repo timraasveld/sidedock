@@ -14,7 +14,7 @@ module Sidedock
         yield new(container)
       end
 
-      remove_image unless options[:keep_image]
+      remove_image if options[:keep_image] == false
     end
 
     protected
