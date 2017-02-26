@@ -47,7 +47,7 @@ Then, to use the service in your test:
 ```ruby
 describe 'connecting to a FTP server' do
   FtpServer.use do |ftp_server|
-    ftp_server.files          # => ["bin", "boot", "dev", ...]
+    ftp_server.files # => ["bin", "boot", "dev", ...]
 
     ftp_client = Net::FTP.new
     ftp_client.connect Net::FTP.connect ftp_server.ip, ftp_server.ports.ftp
