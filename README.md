@@ -5,7 +5,6 @@ You can create a class around the service to query internal state.
 **NOTE: The current code has been tested in a small variety of setups and you may experience problems. Please create an issue describing your OS and `docker --version` and I'll try my best to fix your problem. Or create a PR if you're feeling generous :-)**
 
 # Do I need it?
-
 If you integrate against a well-documented, versioned service such as Twitter's API it's probably better to just record responses using a gem like [VCR](https://github.com/vcr/vcr).
 
 Testing against the real service may be useful if:
@@ -63,9 +62,19 @@ FtpServer.use {
                                  # On by default to provide a fast development feedback cycle.
                                  # If your knowledge of Dockers caching mechanisms is limited,
                                  # switch this off for a more predictable experience
-} do 
+} do
   something
 end
+```
+
+## Non-Rails projects
+If your project doesn't use Rails, you have to manually require services before use, example:
+```ruby
+# spec/lib/foo_spec.rb
+require_relative '../docker/foo_service'
+
+FooService.use do |foo_service|
+  ...
 ```
 
 # Configuration

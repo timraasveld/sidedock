@@ -9,6 +9,10 @@ group :test, :development do
   gem 'byebug'
 end
 
+group :test do
+  gem 'combustion', '~> 0.5.5'
+end
+
 group :development do
   gem 'rake', '~> 10.0'
   gem 'guard'

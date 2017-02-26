@@ -14,6 +14,10 @@ RSpec.configure do |config|
     config.default_formatter = 'doc'
   end
 
+  # Add focus: true to a context to run only that test
+  config.filter_run focus: true
+  config.run_all_when_everything_filtered = true
+
   Kernel.srand config.seed
   config.order = 'random'
 end

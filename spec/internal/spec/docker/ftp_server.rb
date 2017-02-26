@@ -3,6 +3,6 @@ class FtpServer < Sidedock::Service
   port :ftp, 21 # exposes external FTP port as service.ports.ftp
 
   def add_file(filename, content)
-    bash "echo '#{content}' > #{filename}"
+    sh "echo '#{content}' > #{filename}"
   end
 end
