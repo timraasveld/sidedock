@@ -1,7 +1,5 @@
 **NOTE: The current code has been tested in a small variety of setups and you may experience problems. Please create an issue detailing your OS and `docker --version` and I'll try my best to fix your problem. Or create a PR if you're feeling generous :-)**
 
-# Test the interaction between your Ruby app and a supporting application using the real thing.
-
 Sidedock lets you easily run a supporting application(= service) in your testsuite by leverage the power of Docker. It tries to abstract away as many of Dockers complexities as possible to make it team-friendly.
 
 You can create a class around the service to query internal state.
