@@ -9,12 +9,14 @@ You can create a class around the service to query internal state.
 gem 'sidedock', '~> 2.0.0-beta2'
 ```
 
-## Usage
-### Basic example
+# Usage
+## Basic example
 Example:
 
 ```dockerfile
-# spec/docker/ftp_server/Dockerfile # spec/docker/ftp_server is Docker's build directory
+# spec/docker/ftp_server/Dockerfile
+
+# spec/docker/ftp_server is Docker's build directory, put any files you reference in the Dockerfile here
 FROM odiobill/vsftpd
 RUN bash -c 'useradd test -p $1$2f712aa7$bP1dXBeOEUoeTdnUeNLGQ/'
 ```
@@ -46,7 +48,7 @@ describe 'connecting to a FTP server' do
 end
 ```
 
-### `Sidedock::Service#use` options
+## `Sidedock::Service#use` options
 ```ruby
 FtpService.use {
   port_mapping: { https: 443 },  # Provide additional port accessors
@@ -59,7 +61,7 @@ FtpService.use {
 end
 ```
 
-## Configuration
+### Configuration
 ```ruby
 # Intializer-style syntax
 Sidedock.configure do |config|
@@ -69,4 +71,3 @@ end
 # Shorthand syntax
 Sidedock.configuration.debug = true
 ```
-
