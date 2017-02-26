@@ -37,7 +37,7 @@ module Sidedock
     end
 
     def self.dockerfile_path
-      "#{directory}/#{dockerfile}"
+      "#{directory}/#{to_s.underscore}/#{dockerfile}"
     end
 
     def self.dockerfile

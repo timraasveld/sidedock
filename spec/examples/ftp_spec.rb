@@ -1,4 +1,4 @@
-require_relative '../sidedock/ftp_server/ftp_server'
+require_relative '../docker/ftp_server'
 require 'net/ftp'
 
 describe Net::FTP do

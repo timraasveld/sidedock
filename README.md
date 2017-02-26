@@ -1,61 +1,74 @@
-**NOTE: The current code is quite buggy and definitely not production-ready. In its current state, it's only suitable for testing (which I built it for originally)**
+**NOTE: The current code has been tested in a small variety of setups and you may experience problems. Please create an issue detailing your OS and `docker --version` and I'll try my best to fix your problem. Or create a PR if you're feeling generous :-)**
 
-## The problem
-Docker is supposed to make it easy to, I quote, *Build, Ship, and Run Any App, Anywhere*. While it may live up to this promise in big enterprises with lots of money and time, in small teams using Docker can be quite problematic because:
+# Test the interaction between your Ruby app and a supporting application using the real thing.
 
-- You have to think of a build workflow and set up a deployment system. When are images updated, built, and started?
-- You have to ensure required Docker services are up when your main app is, when your server reboots or a new version of your Rails app is deploying
+Sidedock lets you easily run a supporting application(= service) in your testsuite by leverage the power of Docker. It tries to abstract away as many of Dockers complexities as possible to make it team-friendly.
 
-Docker's concepts of images and containers are designed for big enterprises who have to scale, not for the 95% of small companies whose main concern is getting more people to enjoy their app.
+You can create a class around the service to query internal state.
 
-## The solution
-Sidedock assumes the server you run Rails on is powerful enough to also run the Docker services you need, allowing you define a Dockerfile under `app/docker` (or `spec/docker` for testing purposes), and automagically bring it up and down within a `with_dockerfile 'my_dockerfile' do`-block. This allows you to have the benefits of Docker without the big sysop/devops task that normally comes along with it.
-
-## Basic usage
-### RSpec
-Example:
+# Installation
 ```ruby
-# Gemfile
-gem 'sidedock', '~> 1.0.3'
+gem 'sidedock', '~> 2.0.0-beta2'
 ```
 
+## Usage
+### Basic example
+Example:
+
 ```dockerfile
-# spec/docker/ftp_server/Dockerfile
+# spec/docker/ftp_server/Dockerfile # spec/docker/ftp_server is Docker's build directory
 FROM odiobill/vsftpd
 RUN bash -c 'useradd test -p $1$2f712aa7$bP1dXBeOEUoeTdnUeNLGQ/'
 ```
 
-Then, to run it alongside your Rspec tests, simply do:
 ```ruby
-before do
-  Sidedock.with_dockerfile 'ftp_server', port_mapping: { ftp: 21 } do |ftp_server|
-    # Get Docker's automatically assigned port for the service
-    puts ftp_server.ports.ftp # => '31425'
+# spec/docker/ftp_server.rb
+class FtpServer < SideDock::Service
+  port :ftp, 21        # Allows you to access auto-assigned FTP port as ftp_seerver.ports.ftp
+  cli_method :cat, :ls # defines method ftp_server.cat and ftp_server.ls, wrapping arround the system commands.
+                       # sh is provided by default.
 
-    puts ftp_server.ip # => '10.5.2.100'
-
-    puts ftp_server.sh 'cat /etc/hosts' # => '127.0.0.1	localhost
-                                          #     ...'
+  # Example internal state accessor. This one could be used to assert that a
+  # file uploaded by your app is actually on the server.
+  def files(directory = '/')
+    ls(directory).split
   end
+end
+```
+
+Then, to use the service in your test:
+```ruby
+describe 'connecting to a FTP server' do
+  FtpServer.use do |ftp_server|
+    ftp_server.files          # => ["bin", "boot", "dev", ...]
+
+    ftp_client = Net::FTP.new
+    ftp_client.connect Net::FTP.connect ftp_server.ip, ftp_server.ports.ftp
+  end
+end
+```
+
+### `Sidedock::Service#use` options
+```ruby
+FtpService.use {
+  port_mapping: { https: 443 },  # Provide additional port accessors
+  keep_image: false              # Don't remove image after build, allowing Docker to cache.
+                                 # On by default to provide a fast development feedback cycle.
+                                 # If your knowledge of Dockers caching mechanisms is limited,
+                                 # switch this off for a more predictable experience
+} do 
+  soething
 end
 ```
 
 ## Configuration
 ```ruby
+# Intializer-style syntax
 Sidedock.configure do |config|
   config.debug = true # Print each executed docker command
 end
+
+# Shorthand syntax
+Sidedock.configuration.debug = true
 ```
 
-### `with_dockerfile` options
-```ruby
-Sidedock.with_dockerfile 'gitlab', {
-  port_mapping: { https: 443 }, # Make port available as `gitlab.ports.https` (default: {})
-  keep_image: true              # Don't remove image after build, allowing Docker to cache.
-                                # Useful for a fast development feedback cycle,
-                                # but you need to have knowledge about how Docker caches
-                                # to use this wisely (default: false)
-} do
-  something
-end
-```
