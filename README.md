@@ -68,7 +68,7 @@ FtpServer.use {
 end
 ```
 
-### Configuration
+# Configuration
 ```ruby
 # Intializer-style syntax
 Sidedock.configure do |config|
