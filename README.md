@@ -4,6 +4,15 @@ You can create a class around the service to query internal state.
 
 **NOTE: The current code has been tested in a small variety of setups and you may experience problems. Please create an issue describing your OS and `docker --version` and I'll try my best to fix your problem. Or create a PR if you're feeling generous :-)**
 
+# Do I need it?
+
+If you integrate against a well-documented, versioned service such as Twitter's API it's probably better to just record responses using a gem like [VCR](https://github.com/vcr/vcr).
+
+Testing against the real service may be useful if:
+- it is an internal API (à la microservices) that is not versioned because you're the only consumer. Sidedock helps you to quickly make changes and see which tests break without updating recorded responses.
+- it uses a stateful protocol such as FTP, which is difficult to mock and dependent on server configuration
+- it uses an uncommon protocol for which no easy mocking tools are available
+
 # Installation
 ```ruby
 gem 'sidedock', '~> 2.0.0-beta2'
@@ -11,8 +20,6 @@ gem 'sidedock', '~> 2.0.0-beta2'
 
 # Usage
 ## Basic example
-Example:
-
 ```dockerfile
 # spec/docker/ftp_server/Dockerfile
 
