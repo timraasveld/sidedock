@@ -57,14 +57,14 @@ end
 
 ## `Sidedock::Service#use` options
 ```ruby
-FtpService.use {
+FtpServer.use {
   port_mapping: { https: 443 },  # Provide additional port accessors
   keep_image: false              # Don't remove image after build, allowing Docker to cache.
                                  # On by default to provide a fast development feedback cycle.
                                  # If your knowledge of Dockers caching mechanisms is limited,
                                  # switch this off for a more predictable experience
 } do 
-  soething
+  something
 end
 ```
 
