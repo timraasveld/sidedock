@@ -1,5 +1,5 @@
 require 'bundler/setup'
-Bundler.require :default, :development, :test
+Bundler.require
 
 require 'byebug'
 require 'sidedock'
