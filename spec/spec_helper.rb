@@ -1,5 +1,5 @@
 require 'bundler/setup'
-Bundler.require
+Bundler.require :default, :development, :test
 
 require 'byebug'
 require 'sidedock'
@@ -13,6 +13,10 @@ RSpec.configure do |config|
   if config.files_to_run.one?
     config.default_formatter = 'doc'
   end
+
+  # Add focus: true to a context to run only that test
+  config.filter_run focus: true
+  config.run_all_when_everything_filtered = true
 
   Kernel.srand config.seed
   config.order = 'random'

@@ -1,6 +1,7 @@
 require 'active_support/core_ext/object/blank'
 %w( service configuration cli base image container ports port_configuration errors
 ).each { |file| require "sidedock/#{file}" }
+require 'sidedock/railtie' if defined?(Rails::Railtie)
 
 module Sidedock
   class << self
